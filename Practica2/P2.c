@@ -6,6 +6,13 @@ typedef char boolean;
 #define TRUE 1
 #define FALSE 0
 
+int Valor_Absoluto(int n){
+    if(n < 0) 
+        return -1*n;
+    else
+        return n;
+}
+
 void Uno_Uno(int numero_de_simbolos, char *alfabeto){
 
     for(int i=0; i<numero_de_simbolos; i++){
@@ -60,6 +67,44 @@ boolean Validar_Cadena(char *cadena, char *alfabeto){
 
     return r;
 }
+
+void Concatenar(char *cadena1, char *cadena2, char *concat, int n){
+
+    if(n > 0){
+        
+        strcpy(concat,cadena1);
+        strcat(concat,cadena2);
+        for(int i=0; i<n-1; i++){
+            strcat(concat,cadena1);
+            strcat(concat,cadena2);
+        }
+    }else if(n < 0){
+
+        strcpy(concat,cadena2);
+        strcat(concat,cadena1);
+        for(int i=0; i<Valor_Absoluto(n)-1; i++){
+            strcat(concat,cadena2);
+            strcat(concat,cadena1);
+        }
+
+    }else{
+        printf("El resultado es la cadena vacia.");
+    }
+
+}
+
+int Concurrencia(char *cadena, char concurr){
+
+    int cant=0;
+
+    for(int i=0; i<strlen(cadena); i++){
+        if(cadena[i] == concurr)
+            cant++;
+    }
+
+    return cant;
+}
+
 
 
 int main(){
@@ -130,6 +175,26 @@ int main(){
         scanf("%s",cadena2);
     }while(!Validar_Cadena(cadena2,alfabeto1));
     
+
+    printf("\n\nPractica 3: Concatenacion y concurrencias");
+
+    int n=0;
+    char *concat = NULL, concurr;
+    printf("\nIngresa el numero N: ");
+    scanf("%d",&n);
+
+    concat = (char *)malloc( ( sizeof(char) ) * ( ( strlen(cadena1)+strlen(cadena2) ) * Valor_Absoluto(n) ) );
+
+    Concatenar(cadena1,cadena2,concat,n);
+
+    printf("\n%s",concat);
+
+    getchar();
+    printf("\nEscribe el simbolo que quieres ver su concurrencia: ");
+    scanf("%c",&concurr);
+
+    printf("\n|w1 sub %c| =  %d",concurr, Concurrencia(cadena1, concurr) );
+
 
     return 0;
 }
