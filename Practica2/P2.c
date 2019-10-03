@@ -106,6 +106,33 @@ int Concurrencia(char *cadena, char concurr){
 }
 
 
+void Alfabeto_Concat(char *alfabeto1, char *alfabeto2){
+
+    printf("Sigma1*Sigma2 = { ");
+    for(int i=0; i<strlen(alfabeto1); i++){
+        for(int j=0; j<strlen(alfabeto2); j++){
+            printf("%c%c",alfabeto1[i],alfabeto2[j]);
+            printf(" , ");
+        }
+        printf(" , ");
+    }
+    printf("}.");
+
+}
+
+void Alfabeto_Concat2(char *alfabeto1, char *alfabeto2){
+
+
+    for(int i=0; i<strlen(alfabeto1); i++){
+        for(int j=0; j<strlen(alfabeto2); j++){
+            printf("%c%c",alfabeto1[i],alfabeto2[j]);
+            printf(" , ");
+        }
+        printf(" , ");
+    }
+
+}
+
 
 int main(){
 
@@ -160,7 +187,52 @@ int main(){
                 break;
     }
 
+    printf("Agregar:\n1. De unno en uno.\n2. Rango.\n");
     
+    getchar();
+    printf("Elige opcion: ");
+    scanf("%d",&opc);
+
+    switch(opc){
+
+        case 1:
+                printf("\nCuantos simbolos tendra tu alfabeto: ");
+                scanf("%d", &numero_de_simbolos);
+
+                if(numero_de_simbolos < 3){
+                    printf("\nNecesitas mas simbolos.\nSe asignara el numero predeterminado de simbolos.\nSe asiganara un total de 3.");
+                    numero_de_simbolos = 3;
+                }
+
+                alfabeto2 = (char *)malloc(sizeof(char)*numero_de_simbolos);
+
+                Uno_Uno(numero_de_simbolos,alfabeto2);
+
+                printf("\n\nAlfabeto I\n");
+                Leer_Alfabeto(numero_de_simbolos,alfabeto2);
+    
+                break;
+
+        case 2:
+                printf("Elige el rango de tu alfabeto: ");
+                scanf("%s",rango);
+
+                numero_de_simbolos = rango[2]-rango[0];
+                alfabeto2 = (char *)malloc(sizeof(char)*numero_de_simbolos+1);
+
+                Rango(alfabeto2,rango);
+
+                printf("\n\nAlfabeto I\n");
+                Leer_Alfabeto(numero_de_simbolos+1,alfabeto2);
+    
+                break;
+
+        default:
+                printf("Error: No existe opcion.");
+                break;
+    }
+    
+    /*
     printf("\n\nPractica 2: Verificar si la cadena que se escriba es Válida");
     getchar();
     
@@ -194,7 +266,29 @@ int main(){
     scanf("%c",&concurr);
 
     printf("\n|w1 sub %c| =  %d",concurr, Concurrencia(cadena1, concurr) );
+    */
+    
+    /*
+    printf("\n\nPractica 4: Generar Sigma1 * Sigma2");
+    
+    Alfabeto_Concat(alfabeto1,alfabeto2);
+    */
+    int n=0;
+    printf("\nIngrese el numero N: ");
+    scanf("%d",&n);
+    
+    if(n > 0){ 
+        printf("Sigma1^%d = { ",n);
+        for(int i=0; i<n; i++){
+            Alfabeto_Concat2(alfabeto1,alfabeto1);
+        }
+        printf(" }.");
 
+    }
+    else{
+        printf("Resultado: elemento nulo.");
+    }
 
+  
     return 0;
 }
